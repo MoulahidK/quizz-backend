@@ -1,5 +1,6 @@
 package com.quizz.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,4 +30,22 @@ public class Question {
 	
 	@Column( name = "option_correct", nullable=false)
 	private String optionCorrect;
+
+	public Question() {
+	}
+
+	public Question(Pays pays,String continent) {
+		this.title = pays.getNom();
+		this.options=new HashSet<>(); //?
+		this.options.add(new Option(pays.getCapitale()));
+
+		//ajouter 3 autres options
+
+		this.optionCorrect=pays.getCapitale();
+
+
+
+	}
+
+
 }

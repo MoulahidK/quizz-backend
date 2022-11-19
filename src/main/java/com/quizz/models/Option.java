@@ -22,6 +22,15 @@ public class Option{
 	@JoinColumn(name="question_id")
 	private Question question;
 
+
+	public Option(String optionText) {
+		this.optionText = optionText;
+	}
+
+	public Option() {
+
+	}
+
 	public long getId() {
 		return Id;
 	}
