@@ -1,4 +1,5 @@
 package com.quizz.controller;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,11 +20,11 @@ public class DaoManager {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<String> sendRq(String rq){
+    public List<Pays> sendRq(String rq){
         Session session = this.sessionFactory.getCurrentSession();
-        Query query= session.createQuery(rq);
-        List<String> res =  query.list(); //???
-        return res;
+        Query<Pays> query= session.createQuery(rq);
+        query.setMaxResults(3) ;
+        return query.getResultList();
     }
 
     //Pays
@@ -48,14 +49,15 @@ public class DaoManager {
         Session session = this.sessionFactory.getCurrentSession();
         String sql;
         if(continent.equalsIgnoreCase("monde")){
-            sql=  String.format("SELECT Capitale from pays WHERE NOT (Code_alpha  = '%s') ORDER BY RAND() LIMIT 3;",pays.getCode_alpha());
+            sql=  String.format("From Pays where NOT (Code_alpha  = '%s') ORDER BY RAND()",pays.getCode_alpha());
         }else{
-            sql=  String.format("SELECT Capitale from pays WHERE NOT (Code_alpha  = '%s') AND Continent='%s' ORDER BY RAND() LIMIT 3;",pays.getCode_alpha(),continent);
+            sql=  String.format("From Pays where NOT (Code_alpha  = 'FRA') AND  Continent='%s' ORDER BY RAND();",pays.getCode_alpha(),continent);
 
         }
 
         Query query= session.createQuery(sql);
-        List<String> options_String =  query.list(); //???
+        query.setMaxResults(3); //
+        List <Pays> autres_pays = query.getResultList();
 
         //Bonne réponse
         Option good_answer = new Option();
@@ -64,9 +66,9 @@ public class DaoManager {
         //Ajout des propositions a la liste des propositions
         Set<Option> options =new HashSet<Option>();
         options.add(good_answer);
-        for( String o : options_String) {
+        for( Pays p : autres_pays) {
             Option opt = new Option();
-            opt.setOptionText(o);
+            opt.setOptionText(p.getCapitale());
             options.add(opt);
         }
         res.setOptions(options);

@@ -3,19 +3,33 @@ package com.quizz;
 import com.quizz.controller.DaoManager;
 import com.quizz.models.Question;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.context.ApplicationContext;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import javax.sql.DataSource;
 
@@ -74,12 +88,5 @@ public class QuizzBackendApplication {
 
 		SpringApplication.run(QuizzBackendApplication.class, args);
 		System.out.println("-----");
-		DaoManager dao = new DaoManager();
-
-		List<String> truc = dao.sendRq(" Select Code_alpha, Capitale, Continent from pays where Nom='France';");
-		for(String s :truc){
-			System.out.println(s);
-		}
-
 	}
 }
