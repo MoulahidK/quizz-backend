@@ -1,5 +1,7 @@
 package com.quizz;
 
+import com.quizz.controller.DaoManager;
+import com.quizz.models.Question;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +14,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+
+import java.util.List;
 import java.util.Properties;
 import javax.sql.DataSource;
 
@@ -24,11 +28,7 @@ public class QuizzBackendApplication {
 	@Autowired
 	private Environment env;
 
-	public static void main(String[] args) {
 
-		SpringApplication.run(QuizzBackendApplication.class, args);
-		System.out.println("hello");
-	}
 
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
@@ -67,6 +67,19 @@ public class QuizzBackendApplication {
 	@Bean(name = "transactionManager")
 	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
 		return new HibernateTransactionManager(sessionFactory);
+
+	}
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(QuizzBackendApplication.class, args);
+		System.out.println("-----");
+		DaoManager dao = new DaoManager();
+
+		List<String> truc = dao.sendRq(" Select Code_alpha, Capitale, Continent from pays where Nom='France';");
+		for(String s :truc){
+			System.out.println(s);
+		}
 
 	}
 }

@@ -42,11 +42,9 @@ public class Question {
 		this.title = pays.getNom();
 		this.options=new HashSet<>(); //?
 		this.options.add(new Option(pays.getCapitale()));
-
 		//ajouter 3 autres options
-
 		this.optionCorrect=pays.getCapitale();
-
+		//??
 
 
 	}

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class Controller {
 
+
+
     @Autowired
     private DaoManager daoManager;
     @RequestMapping(value="/home", method=RequestMethod.GET)
@@ -15,7 +17,7 @@ public class Controller {
     }
 
     public Question createQuestion(Pays pays){
-        return daoManager.createQuestion(pays);
+        return daoManager.createQuestion(pays,"");
 
     }
 
