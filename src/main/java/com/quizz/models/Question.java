@@ -31,6 +31,10 @@ public class Question {
 	@Column( name = "option_correct", nullable=false)
 	private String optionCorrect;
 
+
+	//ajouter un attribut pour le continent sélectionne?
+
+
 	public Question() {
 	}
 
@@ -47,5 +51,35 @@ public class Question {
 
 	}
 
+	public Long getQuestionId() {
+		return questionId;
+	}
 
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Set<Option> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Set<Option> options) {
+		this.options = options;
+	}
+
+	public String getOptionCorrect() {
+		return optionCorrect;
+	}
+
+	public void setOptionCorrect(String optionCorrect) {
+		this.optionCorrect = optionCorrect;
+	}
 }
