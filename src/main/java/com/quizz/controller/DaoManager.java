@@ -51,6 +51,7 @@ public class DaoManager {
         Question res= new Question();
         res.setTitle(pays.getNom());
         res.setOptionCorrect(pays.getCapitale());
+        res.setCode_country(pays.getCode_alpha());
 
         //Récupération des 3 autres propositions possibles
         Session session = this.sessionFactory.getCurrentSession();

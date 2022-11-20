@@ -24,6 +24,9 @@ public class Question {
 	
 	@Column(name = "question_title", nullable = false)
 	private String title;
+
+	@Column
+	private String code_country;
 	
 	@OneToMany(targetEntity=Option.class, mappedBy="question", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Option> options;
@@ -79,5 +82,13 @@ public class Question {
 
 	public void setOptionCorrect(String optionCorrect) {
 		this.optionCorrect = optionCorrect;
+	}
+
+	public String getCode_country() {
+		return code_country;
+	}
+
+	public void setCode_country(String code_country) {
+		this.code_country = code_country;
 	}
 }
