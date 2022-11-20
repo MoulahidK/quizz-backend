@@ -3,16 +3,9 @@ package com.quizz.models;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.quizz.models.QuestionControl;
 
 @Entity
 @Table(name = "Questions")
@@ -35,18 +28,21 @@ public class Question {
 	private String optionCorrect;
 
 
-	//ajouter un attribut pour le continent sélectionne?
+	//pas sur
+	@OneToOne
+	private QuestionControl qControl;
+	//pas sur
+
 
 
 	public Question() {
-
+		this.qControl=new QuestionControl(this);
 	}
 
-	public Question(Pays pays,String continent) {
-
-
-
+	public Boolean ValidateQuestion(String reponse){
+		return reponse.equalsIgnoreCase(this.optionCorrect);
 	}
+
 
 	public String toJson() {
 		return Helper.toJsonConverter(this);
