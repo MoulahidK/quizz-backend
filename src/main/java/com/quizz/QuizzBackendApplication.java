@@ -3,7 +3,6 @@ package com.quizz;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -16,8 +15,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import java.util.Properties;
 import javax.sql.DataSource;
 
-@SpringBootApplication
-@EnableAutoConfiguration(exclude = {
+@SpringBootApplication(exclude = {
 		DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class,
 		HibernateJpaAutoConfiguration.class })
@@ -35,7 +33,6 @@ public class QuizzBackendApplication {
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
 		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
 		dataSource.setUrl(env.getProperty("spring.datasource.url"));
 		dataSource.setUsername(env.getProperty("spring.datasource.username"));
@@ -46,7 +43,6 @@ public class QuizzBackendApplication {
 
 	@Autowired
 	@Bean(name = "sessionFactory")
-
 	public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
 		Properties properties = new Properties();
 
@@ -70,7 +66,7 @@ public class QuizzBackendApplication {
 	@Autowired
 	@Bean(name = "transactionManager")
 	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-		return transactionManager;
+		return new HibernateTransactionManager(sessionFactory);
+
 	}
 }

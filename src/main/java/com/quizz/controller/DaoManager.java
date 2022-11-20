@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class DAO {
+public class DaoManager {
     @Autowired
     private SessionFactory sessionFactory;
 
