@@ -31,9 +31,13 @@ public class DaoManager {
     public Pays createPays(String name){
         Pays pays=new Pays();
         pays.setNom(name);
-        pays.setCapitale("");
-        pays.setCode_alpha("");
-        pays.setContinent("");
+
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query= session.createQuery(String.format("From Pays where Nom  = '%s'",name));
+        Pays p =(Pays) query.getResultList().get(0);
+        pays.setCapitale(p.getCapitale());
+        pays.setCode_alpha(p.getCode_alpha());
+        pays.setContinent(p.getContinent());
         return pays;
     }
 
@@ -51,7 +55,7 @@ public class DaoManager {
         if(continent.equalsIgnoreCase("monde")){
             sql=  String.format("From Pays where NOT (Code_alpha  = '%s') ORDER BY RAND()",pays.getCode_alpha());
         }else{
-            sql=  String.format("From Pays where NOT (Code_alpha  = 'FRA') AND  Continent='%s' ORDER BY RAND();",pays.getCode_alpha(),continent);
+            sql=  String.format("From Pays where NOT (Code_alpha  = '%s') AND Continent='%s' ORDER BY RAND()",pays.getCode_alpha(),continent);
 
         }
 

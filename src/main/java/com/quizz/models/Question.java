@@ -39,14 +39,13 @@ public class Question {
 	}
 
 	public Question(Pays pays,String continent) {
-		this.title = pays.getNom();
-		this.options=new HashSet<>(); //?
-		this.options.add(new Option(pays.getCapitale()));
-		//ajouter 3 autres options
-		this.optionCorrect=pays.getCapitale();
-		//??
 
 
+
+	}
+
+	public String toJson() {
+		return Helper.toJsonConverter(this);
 	}
 
 	public Long getQuestionId() {
