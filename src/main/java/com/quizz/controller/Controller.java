@@ -2,6 +2,7 @@ package com.quizz.controller;
 
 import com.quizz.models.Pays;
 import com.quizz.models.Question;
+import com.quizz.models.Quizz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,10 @@ public class Controller {
     //test, chaque methode doit avoir un request mapping ou ca pè
     @RequestMapping(value="/home",method=RequestMethod.GET)
     public String home(){
-        return "hello everyone";
+
+        Quizz qu= daoM.createQuizz("Europe");
+        String res=qu.toJson();
+        return res;
     }
 
     @RequestMapping(value="/home2",method=RequestMethod.GET)
@@ -37,6 +41,8 @@ public class Controller {
 
     @RequestMapping(value="/home3",method=RequestMethod.GET)
     public String home3(){
+
+        //une question
         String res="";
         Pays fr= daoM.createPays("France");
         Question qu= daoM.createQuestion(fr,"Europe");

@@ -7,6 +7,7 @@ import java.util.Set;
 import com.quizz.models.Option;
 import com.quizz.models.Pays;
 import com.quizz.models.Question;
+import com.quizz.models.Quizz;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,6 +21,7 @@ public class DaoManager {
     @Autowired
     private SessionFactory sessionFactory;
 
+    //a supprimer avant de rendre
     public List<Pays> sendRq(String rq){
         Session session = this.sessionFactory.getCurrentSession();
         Query<Pays> query= session.createQuery(rq);
@@ -43,6 +45,7 @@ public class DaoManager {
 
 
     ///Questions
+    //Créer une question QCM a partir d'un objet pays en spécifiant quel continent, sinon "monde"
     public Question createQuestion(Pays pays, String continent){
         //Creation de la question et setting des paramètres
         Question res= new Question();
@@ -80,5 +83,31 @@ public class DaoManager {
         return res;
     }
 
+
+    //Création d'un quiz de 10 question en mode QCM, en fonction du continent spécifié
+    public Quizz createQuizz(String continent){
+        Quizz quizz= new Quizz(continent);
+
+
+        Session session = this.sessionFactory.getCurrentSession();
+        String hql;
+        if(continent.equalsIgnoreCase("monde")){
+            hql=  String.format("From Pays where ORDER BY RAND()");
+        }else{
+            hql=  String.format("From Pays where Continent='%s' ORDER BY RAND()",continent);
+        }
+
+        Query query= session.createQuery(hql);
+        query.setMaxResults(10); //
+        List <Pays> les_pays = query.getResultList();
+        ArrayList<Question> les_questions = new ArrayList<Question>();
+        for (Pays p:les_pays){
+            quizz.getQuestions().add(this.createQuestion(p,continent));
+        }
+
+
+
+        return quizz;
+    }
 
 }

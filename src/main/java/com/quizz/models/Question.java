@@ -36,6 +36,7 @@ public class Question {
 
 
 	public Question() {
+
 	}
 
 	public Question(Pays pays,String continent) {
