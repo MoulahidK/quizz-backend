@@ -27,13 +27,6 @@ public class Question {
 	private String optionCorrect;
 
 
-	//pas sur
-	//@OneToOne
-	//private QuestionControl qControl;
-	//pas sur
-
-
-
 	public Question() {
 	}
 

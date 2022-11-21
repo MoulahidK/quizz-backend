@@ -52,7 +52,6 @@ public class DaoManager {
         res.setOptionCorrect(pays.getCapitale());
         res.setCode_country(pays.getCode_alpha());
 
-
         //Récupération des 3 autres propositions possibles
         Session session = this.sessionFactory.getCurrentSession();
         String sql;
@@ -62,7 +61,6 @@ public class DaoManager {
             sql=  String.format("From Pays where NOT (Code_alpha  = '%s') AND Continent='%s' ORDER BY RAND()",pays.getCode_alpha(),continent);
 
         }
-
         Query query= session.createQuery(sql);
         query.setMaxResults(3); //
         List <Pays> autres_pays = query.getResultList();
@@ -71,12 +69,10 @@ public class DaoManager {
         Option good_answer = new Option();
         good_answer.setOptionText(pays.getCapitale());
 
-
         //Ajout des propositions a la liste des propositions
         Set<Option> options =new HashSet<Option>();
 
         options.add(good_answer);
-
 
         for( Pays p : autres_pays) {
             Option opt = new Option();
@@ -85,12 +81,7 @@ public class DaoManager {
         }
 
         res.setOptions(options);
-
         session.save(res); //save la question dans la bdd
-
-
-
-
         return res;
     }
 
