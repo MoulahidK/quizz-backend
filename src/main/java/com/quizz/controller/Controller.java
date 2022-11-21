@@ -46,10 +46,9 @@ public class Controller {
         String res="";
         Pays fr= daoM.createPays("France");
         Question qu= daoM.createQuestion(fr,"Europe");
-        System.out.println("avant toJson");
-        System.err.println("avant toJson");
+
         res= qu.toJson();
-        System.out.println("aprestojson");
+
         return res;
     }
 

@@ -1,26 +1,20 @@
 package com.quizz.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Options")
 public class Option{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long Id;
 	
 	private String optionText;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="question_id")
-	private Question question;
+	private transient Long question;
 
 
 	public Option(String optionText) {
@@ -47,11 +41,11 @@ public class Option{
 		this.optionText = optionText;
 	}
 
-	public Question getQuestion() {
+	public Long getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(Long question) {
 		this.question = question;
 	}
 }
