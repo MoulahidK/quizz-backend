@@ -21,6 +21,7 @@ public class Question {
 	private String code_country;
 	
 	@OneToMany(targetEntity=Option.class,  fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="questionid")
 	private Set<Option> options = new HashSet<Option>();
 	
 	@Column( name = "option_correct", nullable=false)

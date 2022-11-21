@@ -12,8 +12,8 @@ public class Option{
 	
 	private String optionText;
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name="question_id")
+	//@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	//@JoinColumn(name="question_id")
 	private transient Long question;
 
 
