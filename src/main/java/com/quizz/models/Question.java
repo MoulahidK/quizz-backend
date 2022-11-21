@@ -33,9 +33,8 @@ public class Question {
 
 
 
-	//public Question() {
-	//	this.qControl=new QuestionControl(this);
-	//}
+	public Question() {
+	}
 
 	public Boolean ValidateQuestion(String reponse){
 		return reponse.equalsIgnoreCase(this.optionCorrect);
@@ -43,6 +42,11 @@ public class Question {
 
 
 	public String toJson() {
+
+		System.out.println("--------------");
+		System.out.println(Helper.toJsonConverter(this));
+
+		System.out.println("--------------");
 		return Helper.toJsonConverter(this);
 	}
 

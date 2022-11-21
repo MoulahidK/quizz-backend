@@ -52,6 +52,7 @@ public class DaoManager {
         res.setOptionCorrect(pays.getCapitale());
         res.setCode_country(pays.getCode_alpha());
 
+
         //Récupération des 3 autres propositions possibles
         Session session = this.sessionFactory.getCurrentSession();
         String sql;
@@ -70,15 +71,23 @@ public class DaoManager {
         Option good_answer = new Option();
         good_answer.setOptionText(pays.getCapitale());
 
+
         //Ajout des propositions a la liste des propositions
         Set<Option> options =new HashSet<Option>();
         options.add(good_answer);
+
+        session.save(good_answer); //save la bonne rep dans la bdd
+
         for( Pays p : autres_pays) {
             Option opt = new Option();
             opt.setOptionText(p.getCapitale());
+            session.save(opt); //save l'option dans la bdd
             options.add(opt);
         }
+
         res.setOptions(options);
+
+        session.save(res); //save la question dans la bdd
         return res;
     }
 

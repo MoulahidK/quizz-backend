@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Option{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long Id;
 	
 	private String optionText;
@@ -47,7 +47,11 @@ public class Option{
 		this.optionText = optionText;
 	}
 
-	
-	 
-	
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 }
