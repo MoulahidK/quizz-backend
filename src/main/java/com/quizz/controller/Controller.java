@@ -4,9 +4,7 @@ import com.quizz.models.Pays;
 import com.quizz.models.Question;
 import com.quizz.models.Quizz;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,26 +14,17 @@ import java.util.List;
 public class Controller {
     @Autowired
     private DaoManager daoM;
-    @RequestMapping(value="/home",method=RequestMethod.GET)
-    public String home(){
+    private Quizz current_quizz;
+
+
+    @RequestMapping(value="/test_quiz",method=RequestMethod.GET)
+    public String test_quiz(){
         Quizz qu= daoM.createQuizz("Europe");
         return qu.toJson();
     }
 
-    @RequestMapping(value="/home2",method=RequestMethod.GET)
-    public String home2(){
-        String str ="From Pays where NOT (Code_alpha  = 'FRA') AND Continent='Europe' ORDER BY RAND()" ;
-        List <Pays> u = daoM.sendRq(str);
-        ArrayList<String> res= new ArrayList<>();
-        for (Pays p:u){
-            res.add(p.getNom());
-        }
-        return String.join(",    ",res);
-        }
-
-    @RequestMapping(value="/home3",method=RequestMethod.GET)
-    public String home3(){
-
+    @RequestMapping(value="/test_question",method=RequestMethod.GET)
+    public String test_question(){
         //une question
         Pays fr= daoM.createPays("France");
         Question qu= daoM.createQuestion(fr,"Europe");
@@ -43,10 +32,48 @@ public class Controller {
 
     }
 
-    public Integer QuizzResults(Quizz quizz,ArrayList<String> reponses){
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String home(){
+        return "Hello!!!!!!!!!!!!!!!!";
+    }
+
+    @RequestMapping(value = "/quizz/",method = RequestMethod.GET) //url temporaire hein
+    public String InstanceQuizz(){
+        this.current_quizz=daoM.createQuizz("monde");
+        return "Quizz généré";
+    }
+    /*
+    @RequestMapping(value = "/quizz/{i}",method = RequestMethod.GET) //url temporaire hein
+    public String getQuestion(@PathVariable int i){
+        try{
+            return this.current_quizz.getQuestions().get(i).toJson();
+        }catch(Exception e ){
+            return "Il n'y a pas autant de questions dans le quizz!";
+        }
+    } */
+
+    @PostMapping(value = "/quizz")
+    public String getQuestion(@RequestBody int i){
+        if (this.current_quizz == null){
+            this.InstanceQuizz();
+        }
+
+        try{
+            return this.current_quizz.getQuestions().get(i).toJson();
+        }catch(Exception e ){
+            return "Il n'y a pas autant de questions dans le quizz!";
+        }
+    }
+
+
+
+
+
+
+    public Integer QuizzResults(Quizz quizz){
         Integer score = 0;
-        for (int i =0 ; i<reponses.size();i++){
-            quizz.getQuestions().get(i).ValidateQuestion(reponses.get(i));
+        for (int i =0 ; i<quizz.getReponses().size();i++){
+            quizz.getQuestions().get(i).ValidateQuestion(quizz.getReponses().get(i));
             score++;
         }
         return score;

@@ -94,7 +94,7 @@ public class DaoManager {
         Session session = this.sessionFactory.getCurrentSession();
         String hql;
         if(continent.equalsIgnoreCase("monde")){
-            hql=  String.format("From Pays where ORDER BY RAND()");
+            hql=  String.format("From Pays  ORDER BY RAND()");
         }else{
             hql=  String.format("From Pays where Continent='%s' ORDER BY RAND()",continent);
         }
