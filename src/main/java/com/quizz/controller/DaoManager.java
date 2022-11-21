@@ -89,8 +89,6 @@ public class DaoManager {
     //Création d'un quiz de 10 question en mode QCM, en fonction du continent spécifié
     public Quizz createQuizz(String continent){
         Quizz quizz= new Quizz(continent);
-
-
         Session session = this.sessionFactory.getCurrentSession();
         String hql;
         if(continent.equalsIgnoreCase("monde")){

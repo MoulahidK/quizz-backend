@@ -3,6 +3,7 @@ package com.quizz.controller;
 import com.quizz.models.Pays;
 import com.quizz.models.Question;
 import com.quizz.models.Quizz;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,7 +70,7 @@ public class Controller {
 
 
 
-
+/*
     public Integer QuizzResults(Quizz quizz){
         Integer score = 0;
         for (int i =0 ; i<quizz.getReponses().size();i++){
@@ -78,7 +79,7 @@ public class Controller {
         }
         return score;
     }
-
+*/
 
 
 
