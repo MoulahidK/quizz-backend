@@ -21,7 +21,7 @@ public class DaoManager {
     @Autowired
     private SessionFactory sessionFactory;
 
-    //a supprimer avant de rendre
+    // /!\a supprimer avant de rendre
     public List<Pays> sendRq(String rq){
         Session session = this.sessionFactory.getCurrentSession();
         Query<Pays> query= session.createQuery(rq);
@@ -42,7 +42,6 @@ public class DaoManager {
         pays.setContinent(p.getContinent());
         return pays;
     }
-
 
     ///Questions
     //Créer une question QCM a partir d'un objet pays en spécifiant quel continent, sinon "monde"
@@ -80,7 +79,6 @@ public class DaoManager {
             options.add(opt);
         }
         res.setOptions(options);
-
         return res;
     }
 
@@ -101,7 +99,6 @@ public class DaoManager {
         Query query= session.createQuery(hql);
         query.setMaxResults(10); //
         List <Pays> les_pays = query.getResultList();
-        ArrayList<Question> les_questions = new ArrayList<Question>();
         for (Pays p:les_pays){
             quizz.getQuestions().add(this.createQuestion(p,continent));
         }

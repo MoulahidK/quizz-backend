@@ -1,11 +1,9 @@
 package com.quizz.models;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import com.quizz.models.QuestionControl;
 
 @Entity
 @Table(name = "Questions")
@@ -29,15 +27,15 @@ public class Question {
 
 
 	//pas sur
-	@OneToOne
-	private QuestionControl qControl;
+	//@OneToOne
+	//private QuestionControl qControl;
 	//pas sur
 
 
 
-	public Question() {
-		this.qControl=new QuestionControl(this);
-	}
+	//public Question() {
+	//	this.qControl=new QuestionControl(this);
+	//}
 
 	public Boolean ValidateQuestion(String reponse){
 		return reponse.equalsIgnoreCase(this.optionCorrect);
