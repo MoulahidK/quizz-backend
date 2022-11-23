@@ -103,9 +103,6 @@ public class DaoManager {
         for (Pays p:les_pays){
             quizz.getQuestions().add(this.createQuestion(p,continent));
         }
-
-
-
         return quizz;
     }
 

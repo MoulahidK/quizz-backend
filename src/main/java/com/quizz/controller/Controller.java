@@ -14,26 +14,6 @@ public class Controller {
     private Quizz current_quizz;
 
 
-    @RequestMapping(value="/test_quiz",method=RequestMethod.GET)
-    public String test_quiz(){
-        Quizz qu= daoM.createQuizz("Europe");
-        return qu.toJson();
-    }
-
-    @RequestMapping(value="/test_question",method=RequestMethod.GET)
-    public String test_question(){
-        //une question
-        Pays fr= daoM.createPays("France");
-        Question qu= daoM.createQuestion(fr,"Europe");
-        return  qu.toJson();
-
-    }
-
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String home(){
-        return "Hello!!!!!!!!!!!!!!!!";
-    }
-
     @RequestMapping(value = "/quizz/",method = RequestMethod.GET) //url temporaire hein
     public String InstanceQuizz(){
         this.current_quizz=daoM.createQuizz("monde");
@@ -58,6 +38,27 @@ public class Controller {
 
 
 /*
+
+    @RequestMapping(value="/test_quiz",method=RequestMethod.GET)
+    public String test_quiz(){
+        Quizz qu= daoM.createQuizz("Europe");
+        return qu.toJson();
+    }
+
+    @RequestMapping(value="/test_question",method=RequestMethod.GET)
+    public String test_question(){
+        //une question
+        Pays fr= daoM.createPays("France");
+        Question qu= daoM.createQuestion(fr,"Europe");
+        return  qu.toJson();
+
+    }
+
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String home(){
+        return "Hello!!!!!!!!!!!!!!!!";
+    }
+
     public Integer QuizzResults(Quizz quizz){
         Integer score = 0;
         for (int i =0 ; i<quizz.getReponses().size();i++){
