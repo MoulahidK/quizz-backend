@@ -1,14 +1,10 @@
 package com.quizz.controller;
-
 import com.quizz.models.Pays;
 import com.quizz.models.Question;
 import com.quizz.models.Quizz;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 
@@ -43,17 +39,8 @@ public class Controller {
         this.current_quizz=daoM.createQuizz("monde");
         return "Quizz généré";
     }
-    /*
-    @RequestMapping(value = "/quizz/{i}",method = RequestMethod.GET) //url temporaire hein
-    public String getQuestion(@PathVariable int i){
-        try{
-            return this.current_quizz.getQuestions().get(i).toJson();
-        }catch(Exception e ){
-            return "Il n'y a pas autant de questions dans le quizz!";
-        }
-    } */
 
-    @PostMapping(value = "/quizz")
+    @PostMapping(value = "/question/")
     public String getQuestion(@RequestBody int i){
         if (this.current_quizz == null){
             this.InstanceQuizz();
