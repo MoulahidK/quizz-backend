@@ -1,0 +1,10 @@
+com\quizz\QuizzBackendApplication.class
+com\quizz\repositories\OptionRepository.class
+com\quizz\models\Helper.class
+com\quizz\models\Question.class
+com\quizz\controller\Controller.class
+com\quizz\models\Option.class
+com\quizz\models\Pays.class
+com\quizz\repositories\QuestionRepository.class
+com\quizz\models\Quizz.class
+com\quizz\controller\DaoManager.class
